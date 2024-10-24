@@ -1,6 +1,5 @@
 package ru.vsu.cs.cg24.g82.dementiev_a.obj_writer;
 
-import org.apache.maven.surefire.shared.io.FileUtils;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -109,14 +108,15 @@ public class ObjWriterTests {
         ));
         objWriter.write(model, testFilename);
         Path path = Path.of(testFilename);
+        String separator = System.lineSeparator();
         String content = Files.readString(path, StandardCharsets.UTF_8);
         Assertions.assertEquals(
-                "v 0.0 0.0 0.0\r\n" +
-                        "v 1.0 1.2 3.6\r\n" +
-                        "v -2.0 -4.45 7.0\r\n" +
-                        "v -1.5 -4.45 6.5\r\n" +
-                        "v 10.0 11.0 0.0\r\n" +
-                        "f 1 2 4\r\n" +
+                "v 0.0 0.0 0.0" + separator +
+                        "v 1.0 1.2 3.6" + separator +
+                        "v -2.0 -4.45 7.0" + separator +
+                        "v -1.5 -4.45 6.5" + separator +
+                        "v 10.0 11.0 0.0" + separator +
+                        "f 1 2 4" + separator +
                         "f 3 5 4",
                 content.strip()
         );
