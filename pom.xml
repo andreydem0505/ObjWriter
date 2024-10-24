@@ -33,10 +33,12 @@
         </dependency>
     </dependencies>
     <build>
+        <testSourceDirectory>tests/ru/vsu/cs/cg24/g82/dementiev_a/obj_writer</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
                     <source>16</source>
                     <target>16</target>
