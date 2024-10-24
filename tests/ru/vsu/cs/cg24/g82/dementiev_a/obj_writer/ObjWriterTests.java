@@ -1,5 +1,6 @@
 package ru.vsu.cs.cg24.g82.dementiev_a.obj_writer;
 
+import org.apache.maven.surefire.shared.io.FileUtils;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -89,7 +90,7 @@ public class ObjWriterTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"test.obj", "test", "тест.obj", "анонимная модель.obj", "папка/ещё папка/моделька.obj", "../../meow.obj"})
+    @ValueSource(strings = {"test.obj", "test", "тест.obj", "анонимная модель.obj", "../папка/ещё папка/моделька.obj", "../../meow.obj"})
     public void writeTest(String testFilename) throws IOException {
         Model model = new Model();
         model.vertices = new ArrayList<>(List.of(

@@ -33,7 +33,8 @@
         </dependency>
     </dependencies>
     <build>
-        <testSourceDirectory>tests/ru/vsu/cs/cg24/g82/dementiev_a/obj_writer</testSourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>tests</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
