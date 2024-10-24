@@ -18,6 +18,10 @@ public class ObjWriter {
 
     public void write(Model model, String filename) {
         File file = new File(filename);
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
         try {
             if (!file.createNewFile())
                 System.out.println("Warning: " + filename + " already exists");
