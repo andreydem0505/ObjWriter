@@ -117,8 +117,8 @@ public class ObjWriterTests {
                         "v -1.5 -4.45 6.5" + separator +
                         "v 10.0 11.0 0.0" + separator +
                         "f 1 2 4" + separator +
-                        "f 3 5 4",
-                content.strip()
+                        "f 3 5 4" + separator,
+                content
         );
         Files.delete(path);
     }
