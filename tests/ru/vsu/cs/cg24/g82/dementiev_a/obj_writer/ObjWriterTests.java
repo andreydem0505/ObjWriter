@@ -10,6 +10,7 @@ import ru.vsu.cs.cg24.g82.dementiev_a.math.Vector3f;
 import ru.vsu.cs.cg24.g82.dementiev_a.model.Model;
 import ru.vsu.cs.cg24.g82.dementiev_a.model.Polygon;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -109,6 +110,7 @@ public class ObjWriterTests {
         objWriter.write(model, testFilename);
         Path path = Path.of(testFilename);
         String separator = System.lineSeparator();
+        File file = path.toFile();
         String content = Files.readString(path, StandardCharsets.UTF_8);
         Assertions.assertEquals(
                 "v 0.0 0.0 0.0" + separator +
@@ -120,6 +122,11 @@ public class ObjWriterTests {
                         "f 3 5 4" + separator,
                 content
         );
-        Files.delete(path);
+        int counter = testFilename.split(File.pathSeparator).length - 1;
+        if (counter == 0) counter = 1;
+        while (counter > 0 && file.delete()) {
+            file = file.getParentFile();
+            counter--;
+        }
     }
 }
