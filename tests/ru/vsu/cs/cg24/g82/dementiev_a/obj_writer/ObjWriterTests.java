@@ -122,11 +122,11 @@ public class ObjWriterTests {
                         "f 3 5 4" + separator,
                 content
         );
-        int counter = testFilename.split(File.pathSeparator).length - 1;
-        if (counter == 0) counter = 1;
-        while (counter > 0 && file.delete()) {
+        int depth = testFilename.split(File.pathSeparator).length - 1;
+        if (depth == 0) depth = 1;
+        while (depth > 0 && file.delete()) {
             file = file.getParentFile();
-            counter--;
+            depth--;
         }
     }
 }
