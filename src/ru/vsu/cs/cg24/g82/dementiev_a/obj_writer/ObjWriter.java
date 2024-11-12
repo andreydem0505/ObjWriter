@@ -18,30 +18,37 @@ public class ObjWriter {
 
     public void write(Model model, String filename) {
         File file = new File(filename);
-        File parent = file.getParentFile();
-        if (parent != null && !parent.exists() && !parent.mkdirs()) {
-            throw new IllegalStateException("Couldn't create dir: " + parent);
+        if (!createDir(file.getParentFile()))
+            return;
+        if (!createFile(file))
+            return;
+        try (PrintWriter writer = new PrintWriter(file)) {
+            model.vertices.forEach(v -> writer.println(vertexToString(v)));
+            model.textureVertices.forEach(v -> writer.println(textureVertexToString(v)));
+            model.normals.forEach(v -> writer.println(normalToString(v)));
+            model.polygons.forEach(v -> writer.println(polygonToString(v)));
+        } catch (IOException e) {
+            System.out.println("Error while writing file");
         }
+    }
+
+    private boolean createDir(File directory) {
+        if (directory != null && !directory.exists() && !directory.mkdirs()) {
+            System.out.println("Couldn't create dir: " + directory);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean createFile(File file) {
         try {
             if (!file.createNewFile())
-                System.out.println("Warning: " + filename + " already exists");
-            PrintWriter writer = new PrintWriter(file);
-            for (Vector3f vector : model.vertices) {
-                writer.println(vertexToString(vector));
-            }
-            for (Vector2f vector : model.textureVertices) {
-                writer.println(textureVertexToString(vector));
-            }
-            for (Vector3f vector : model.normals) {
-                writer.println(normalToString(vector));
-            }
-            for (Polygon polygon : model.polygons) {
-                writer.println(polygonToString(polygon));
-            }
-            writer.close();
+                System.out.println("Warning: " + file.getName() + " already exists");
         } catch (IOException e) {
             System.out.println("Error while creating the file");
+            return false;
         }
+        return true;
     }
 
     protected String vertexToString(Vector3f vector) {
